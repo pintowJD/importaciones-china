@@ -6,23 +6,32 @@ const usarLocalStorage = true;
 
 let tasasCambio = null;
 let ultimaActualizacion = null;
-const tiempoCache = 24 * 60 * 60 * 1000; // 6 horas en milisegundos
 
 // Función para obtener las tasas de cambio
 async function obtenerTasas() {
-    let ahora = new Date().getTime();
+    let ahora = new Date();
+    let ultimaFechaStr = localStorage.getItem("ultimaFecha");
+    let ultimaFecha = ultimaFechaStr ? new Date(ultimaFechaStr) : null;
 
-    if (usarLocalStorage) {
-        let datosGuardados = localStorage.getItem("tasasCambio");
-        let ultimaGuardada = localStorage.getItem("ultimaActualizacion");
+    let actualizar = false;
 
-        if (datosGuardados && ultimaGuardada && (ahora - ultimaGuardada) < tiempoCache) {
-            console.log("✅ Usando tasas desde localStorage.");
-            tasasCambio = JSON.parse(datosGuardados);
-            ultimaActualizacion = parseInt(ultimaGuardada);
-            actualizarContador();
-            return tasasCambio;
+    if (!ultimaFecha) {
+        actualizar = true; // Primera ejecución sin datos previos
+    } else {
+        let ahoraHoras = ahora.getHours();
+        
+        // Si ya pasó la medianoche y el día cambió
+        if (ahoraHoras >= 0 && ahora.toDateString() !== ultimaFecha.toDateString()) {
+            actualizar = true;
         }
+    }
+
+    if (!actualizar && usarLocalStorage) {
+        console.log("✅ Usando tasas desde localStorage.");
+        tasasCambio = JSON.parse(localStorage.getItem("tasasCambio"));
+        ultimaActualizacion = new Date(localStorage.getItem("ultimaFecha"));
+        actualizarContador();
+        return tasasCambio;
     }
 
     console.log("⚠️ Haciendo una nueva petición a la API...");
@@ -36,7 +45,7 @@ async function obtenerTasas() {
 
             if (usarLocalStorage) {
                 localStorage.setItem("tasasCambio", JSON.stringify(tasasCambio));
-                localStorage.setItem("ultimaActualizacion", ultimaActualizacion);
+                localStorage.setItem("ultimaFecha", ahora.toISOString());
                 console.log("✅ Tasas guardadas en localStorage.");
             }
 
@@ -76,8 +85,11 @@ async function convertir() {
 // 🆕 Función para actualizar el contador de tiempo restante
 function actualizarContador() {
     function calcularTiempoRestante() {
-        let ahora = new Date().getTime();
-        let tiempoRestante = tiempoCache - (ahora - ultimaActualizacion);
+        let ahora = new Date();
+        let proximaActualizacion = new Date(ahora);
+        proximaActualizacion.setHours(24, 0, 0, 0); // Establecer a medianoche del siguiente día
+
+        let tiempoRestante = proximaActualizacion - ahora;
 
         if (tiempoRestante <= 0) {
             document.getElementById("contador").innerText = "🔄 Se necesita una nueva actualización.";
