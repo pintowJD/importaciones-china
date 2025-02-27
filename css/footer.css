@@ -1,0 +1,12 @@
+/* Footer fijo en la parte inferior */
+footer {
+    background-color: #1e1e1e;
+    padding: 15px;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    text-align: center;
+    font-size: 14px;
+    color: #ffffff;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
+}

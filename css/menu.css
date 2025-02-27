@@ -1,0 +1,45 @@
+/* Ajustes generales del navbar */
+.navbar {
+    padding: 10px 15px;
+}
+
+/* Logo */
+.logo {
+    height: 40px;
+}
+
+/* Estilo de los enlaces del menú */
+.nav-link {
+    font-size: 16px;
+    font-weight: 600;
+    color: white;
+    transition: 0.3s;
+}
+
+.nav-link:hover {
+    color: #EE1C25;
+}
+
+/* Dropdown */
+.dropdown-menu {
+    background-color: #1e1e1e;
+}
+
+.dropdown-item {
+    color: white;
+}
+
+.dropdown-item:hover {
+    background-color: #EE1C25;
+    color: white;
+}
+
+.navbar-brand {
+    font-size: 28px; /* Tamaño más grande */
+}
+
+.logo-china {
+    width: 40px; /* Ajusta el tamaño según lo necesites */
+    height: auto;
+}
+

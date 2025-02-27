@@ -1,15 +1,15 @@
 body {
-    font-family: Arial, sans-serif;
-    background-color: #121212;
-    color: #ffffff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #121212;
+  color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
 }
 
-.container {
+.container-custom {
     background-color: #1e1e1e;
     padding: 20px;
     border-radius: 10px;
@@ -22,6 +22,12 @@ h1 {
     font-size: 20px;
     margin-bottom: 10px;
     color: #D7FC0B;
+}
+
+h2 {
+  font-size: 20px;
+  margin-bottom: 10px;
+  color: #ffffff;
 }
 
 input {
@@ -40,11 +46,12 @@ input {
     margin-top: 10px;
     font-size: 18px;
     background-color: #2a2a2a;
+    color: white;
     padding: 10px;
     border-radius: 5px;
 }
 
-button {
+.button-red {
     position: relative;
     padding: 10px 20px;
     border-radius: 7px;
@@ -61,22 +68,22 @@ button {
     -moz-transition: all 0.2s ease-in;
     transition: all 0.2s ease-in;
   }
-  
-  button:hover {
+
+  .button-red:hover {
     background: rgb(214, 64, 4);
     box-shadow: 0 0 30px 5px #EE1C25;
     -webkit-transition: all 0.2s ease-out;
     -moz-transition: all 0.2s ease-out;
     transition: all 0.2s ease-out;
   }
-  
-  button:hover::before {
+
+  .button-red:hover::before {
     -webkit-animation: sh02 0.5s 0s linear;
     -moz-animation: sh02 0.5s 0s linear;
     animation: sh02 0.5s 0s linear;
   }
-  
-  button::before {
+
+  .button-red::before {
     content: '';
     display: block;
     width: 0px;
@@ -110,7 +117,7 @@ button {
     }
   }
   
-  button:active {
+  .button-red:active {
     box-shadow: 0 0 0 0 transparent;
     -webkit-transition: box-shadow 0.2s ease-in;
     -moz-transition: box-shadow 0.2s ease-in;
